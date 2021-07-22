@@ -1,62 +1,66 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
-// import WebSocket from "ws";
-// const socket = new WebSocket("wss://app.hyperate.io/socket/websocket");
-// socket.addEventListener("open", function () {
-//   console.dir(socket);
-// });
-var TouchPortalAPI = require("touchportal-api");
-// Create an instance of the Touch Portal Client
-var TPClient = new TouchPortalAPI.Client();
+var touchportal_api_1 = __importDefault(require("touchportal-api"));
+var ws_1 = __importDefault(require("ws"));
+// Websocket URL for HypeRate
+var WEBSOCKET_URL = "wss://app.hyperate.io/socket/websocket";
 // Define a pluginId, matches your entry.tp file
-var pluginId = "hyperate_sockets";
-// After join to Touch Portal, it sends an info message
-// handle it here
-TPClient.on("Info", function (_data) {
-    //Do something with the Info message here
-    // NOTE: the "settings" section is already handled and will emit the Settings event, no need to duplicate here, just documenting since it is part of the info message
-    /*
-          {
-              "type":"info",
-              "settings":[{"Setting 1":"Value 1"},...,],
-              "sdkVersion":"(SDK version code)"
-              "tpVersionString":"(Version of Touch Portal in string format)"
-              "tpVersionCode":"(Version of Touch Portal in code format)"
-              "pluginVersion":"(Your plug-in version)"
-          }
-      */
-    // Read some data about your program or interface, and update the choice list in Touch Portal
-    TPClient.choiceUpdate("hyperate_current_heartrate", ["choice1", "choice2"]);
-    // Dynamic State additions - for use when you want control over what states are available in TouchPortal
-    TPClient.createState("test_state", "Description", "Default Value");
-});
-TPClient.on("Broadcast", function (_data) {
-    // If you want to handle page change events - this is what happens
-    // more info here: https://www.touch-portal.com/api/index.php?section=dynamic-actions
-    /*
-      {"type":"broadcast",
-       "event":"pageChange",
-       "pageName":"name of the page switched to"
-      }
-    */
-});
-TPClient.on("Settings", function (_data) {
-    //Do something with the Settings message here
-    // Note: this can be called any time settings are modified or saved in the TouchPortal Settings window.
-    /*
-        [{"Setting 1":"Value 1"},{"Setting 2":"Value 2"},...,{"Setting N":"Value N"}]
-      */
-    // Will throw an exception if/when stateIdToRemove has not been created by the Plugin
-    TPClient.removeState("stateIdToRemove");
-});
-TPClient.on("Update", function (_curVersion, _remoteVersion) {
-    // Do something to indicate to your user there is an update
-    // Open a localhost page, navigate them to the repo about the update, whatever you want to do.
-    // Note: this is only checked on startup of the application and will not inform users of update until a full restart of Touch Portal or the plugin itself.
-});
+var PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
+// let hypeRateUserId;
+// Create an instance of the Touch Portal Client
+var TPClient = new touchportal_api_1.default.Client();
 //Connects and Pairs to Touch Portal via Sockete
-TPClient.connect({ pluginId: pluginId });
-console.log("===== HypeRate TouchPortal Plugin started =====");
-TPClient.stateUpdate("hyperate_current_heartrate", "value", 95);
-//If you want touchportal-node-api to check for updates on startup,
-// TPClient.connect({ pluginId, updateUrl: "<url to remote entry.tp file>" });
+TPClient.connect({ pluginId: PLUGIN_ID });
+// After joining Touch Portal, it sends an info message
+TPClient.on("Info", function (data) {
+    console.log("Info: " + JSON.stringify(data, null, 2));
+});
+TPClient.on("Action", function (data, _hold) {
+    var actionName = data.actionId;
+    console.dir("Action: " + JSON.stringify(actionName));
+    // Value can be read from within Touch Portal
+    TPClient.stateUpdate("hyperate_current_heartrate", "value", 90);
+});
+var hypeRateUserId = "6371";
+var payload = {
+    topic: "hr:" + hypeRateUserId,
+    event: "phx_join",
+    payload: {},
+    ref: 0,
+};
+var wss = new ws_1.default(WEBSOCKET_URL);
+// function getRandomHeartrate() {
+//   const minHeartrate = 70;
+//   return Math.floor(Math.random() * 20 + minHeartrate);
+// }
+// function setHeartrate() {
+//   let currentHeartRate = getRandomHeartrate();
+//   TPClient.stateUpdate("hyperate_current_heartrate", "value", currentHeartRate);
+// }
+if (wss) {
+    console.log("Connected to " + WEBSOCKET_URL);
+    wss.on("open", function () {
+        wss.send(JSON.stringify(payload), function () {
+            console.log("\nSent message with payload " + JSON.stringify(payload, null, 2));
+        });
+    });
+    wss.on("message", function (payload) {
+        var message = JSON.parse(payload);
+        switch (message.event) {
+            case "hr_update":
+                var newHeartrate = message.payload.hr;
+                console.log({ newHeartrate: newHeartrate });
+                TPClient.stateUpdate("hyperate_current_heartrate", "value", newHeartrate);
+                break;
+            default:
+                console.log("Unhandled message: " + JSON.stringify(message, null, 2));
+        }
+        // TODO: Read hyperRateId from TouchPortal
+        // TODO: Setup Settings value where users can insert their HypeRate ID within TouchPortal
+        // TODO: Figure out how to build an executable from this node script
+    });
+}

@@ -1,32 +1,25 @@
 {
   "sdk": 2,
-  "version": 1001,
+  "version": 1000,
   "name": "TouchPortalHypeRatePlugin",
   "id": "markusbink.TouchPortalHypeRatePlugin",
   "configuration": {
     "colorDark": "#313131",
     "colorLight": "#34AA2F"
   },
-  "plugin_start_cmd": "node index.js",
+  "plugin_start_cmd": "node ./index.js",
   "categories": [
     {
       "id": "hyperate_category",
-      "name": "Minecraft Stats",
+      "name": "HypeRate Stats",
       "imagepath": "%TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/images/hyperate-logo-icon-24.png",
       "actions": [
         {
-          "type": "communicate",
-          "name": "Increment heartrate",
-          "pluginId": "markusbink.TouchPortalHypeRatePlugin",
-          "prefix": "HypeRate",
-          "tryInline": true,
-          "id": "hyperate_increment_heartrate",
-          "data": [
-            {
-              "id": "hyperate_current_heartrate",
-              "value": "85"
-            }
-          ]
+          "id": "hyperate_update_heartrate",
+          "type": "number",
+          "label": "Update Heartrate",
+          "default": 0,
+          "allowDecimals": false
         }
       ],
       "states": [
@@ -37,7 +30,34 @@
           "default": ""
         }
       ],
-      "events": []
+      "events": [
+        {
+          "id": "hyperate_update_heartrate",
+          "name": "HypeRate Update Heartrate",
+          "format": "When value changed",
+          "type": "communicate",
+          "valueType": "choice",
+          "valueChoices": [
+            50,
+            60,
+            70,
+            80
+          ],
+          "valueStateId": "heartrate"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "name": "HypeRate ID",
+      "default": "1234",
+      "type": "number",
+      "maxLenght": 4,
+      "isPassword": false,
+      "minValue": 0,
+      "maxValue": 9999,
+      "readOnly": false
     }
   ]
 }
