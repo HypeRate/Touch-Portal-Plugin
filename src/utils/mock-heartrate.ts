@@ -1,5 +1,6 @@
 // @ts-ignore
 import TouchPortalAPI from "touchportal-api";
+import { State } from "../constants/states";
 
 function getRandomHeartrate() {
   return Math.floor(Math.random() * 20 + 38);
@@ -7,7 +8,9 @@ function getRandomHeartrate() {
 
 function sendHeartrate(client: typeof TouchPortalAPI.Client) {
   let heartRate = getRandomHeartrate();
-  client.stateUpdate("hyperate_current_heartrate", heartRate);
+  console.log(`Heartrate: ${heartRate}`);
+
+  client.stateUpdate(State.CURRENT_HEARTRATE, heartRate);
 }
 
 export function sendMockHeartrate(

@@ -1,6 +1,7 @@
 // @ts-ignore
 import { TPController } from "./tp-controller";
 import WebSocket from "ws";
+import { State } from "./constants/states";
 
 export class WSController {
   private tpService: TPController;
@@ -26,7 +27,7 @@ export class WSController {
 
     switch (message.event) {
       case "phx_reply":
-        this.tpService.updateState("hyperate_current_heartrate", 80);
+        this.tpService.updateState(State.CURRENT_HEARTRATE, 80);
         break;
       default:
         throw new Error("Message type does not exist");

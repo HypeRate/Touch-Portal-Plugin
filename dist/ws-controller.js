@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WSController = void 0;
+var states_1 = require("./constants/states");
 var WSController = /** @class */ (function () {
     function WSController(wss, tpService) {
         this.wss = wss;
@@ -19,7 +20,7 @@ var WSController = /** @class */ (function () {
         var message = JSON.parse(payload);
         switch (message.event) {
             case "phx_reply":
-                this.tpService.updateState("hyperate_current_heartrate", 80);
+                this.tpService.updateState(states_1.State.CURRENT_HEARTRATE, 80);
                 break;
             default:
                 throw new Error("Message type does not exist");

@@ -7,43 +7,20 @@
     "colorDark": "#313131",
     "colorLight": "#34AA2F"
   },
-  "plugin_start_cmd": "node ./index.js",
+  "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/start_tphyperate.sh",
   "categories": [
     {
       "id": "hyperate_category",
       "name": "HypeRate Stats",
       "imagepath": "%TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/images/hyperate-logo-icon-24.png",
-      "actions": [
-        {
-          "id": "hyperate_update_heartrate",
-          "type": "number",
-          "label": "Update Heartrate",
-          "default": 0,
-          "allowDecimals": false
-        }
-      ],
+      "actions": [],
+      "events": [],
       "states": [
         {
           "id": "hyperate_current_heartrate",
           "type": "text",
           "desc": "HypeRate Current Heartrate",
           "default": ""
-        }
-      ],
-      "events": [
-        {
-          "id": "hyperate_update_heartrate",
-          "name": "HypeRate Update Heartrate",
-          "format": "When value changed",
-          "type": "communicate",
-          "valueType": "choice",
-          "valueChoices": [
-            50,
-            60,
-            70,
-            80
-          ],
-          "valueStateId": "heartrate"
         }
       ]
     }

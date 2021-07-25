@@ -1,11 +1,19 @@
 {
-  "name": "hyperate-touch-portal",
+  "name": "tphyperate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "tphyperate": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "pkg": "pkg .",
+    "pkg-win": "pkg --targets node12-win-x64 .",
+    "pkg-mac": "pkg --targets node12-macos-x64 .",
+    "build-win": "pkg --targets node12-win-x64 . && mv tphyperate.exe base/Win/HypeRate/ && rm Installers/TPHypeRate-Win.tpp && cd base/Win && zip -r ../../Installers/TPHypeRate-Win.tpp TPHypeRate",
+    "build-mac": "pkg --targets node12-macos-x64 . && mv tphyperate base/Mac/HypeRate/ && rm Installers/TPHypeRate-Mac.tpp && cd base/Mac && zip -r ../../Installers/TPHypeRate-Mac.tpp TPHypeRate"
   },
   "repository": {
     "type": "git",
@@ -21,9 +29,7 @@
   "dependencies": {
     "@types/node": "^16.3.3",
     "@types/ws": "^7.4.7",
-    "http": "^0.0.1-security",
-    "socket.io": "^4.1.3",
-    "socket.io-client": "^4.1.3",
+    "pkg": "^5.3.1",
     "touchportal-api": "^2.1.1",
     "typescript": "^4.3.5",
     "ws": "^7.5.3"
