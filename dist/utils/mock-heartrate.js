@@ -7,6 +7,7 @@ function getRandomHeartrate() {
 }
 function sendHeartrate(client) {
     var heartRate = getRandomHeartrate();
+    console.log("Heartrate: " + heartRate);
     client.stateUpdate(states_1.State.CURRENT_HEARTRATE, heartRate);
 }
 function sendMockHeartrate(client, interval) {

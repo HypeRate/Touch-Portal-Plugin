@@ -6,7 +6,6 @@ export class TPController {
 
   constructor(pluginId: string) {
     this.tpClient = new TouchPortalAPI.Client();
-
     console.log("TP Client initialized...");
 
     try {
@@ -21,16 +20,20 @@ export class TPController {
     return this.tpClient;
   }
 
-  getSettingByKey(key: string): number | string {
-    return this.tpClient.on("Info", (data: any) => {
+  // Get TouchPortal Setting by its key
+  getSettingByKey(key: string): Promise<string | number> {
+    return new Promise((resolve, reject) => {
       try {
-        return data.settings[0][key];
+        this.tpClient.on("Settings", async (data: any) => {
+          resolve(data[0][key]);
+        });
       } catch (err) {
-        throw new Error(`No settings exist for key: ${key}`);
+        reject(console.log(err));
       }
     });
   }
 
+  // Update TouchPortal State
   updateState(key: string, value: string | number): void {
     try {
       this.tpClient.stateUpdate(key, value);

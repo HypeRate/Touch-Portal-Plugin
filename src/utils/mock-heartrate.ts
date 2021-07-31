@@ -8,8 +8,6 @@ function getRandomHeartrate() {
 
 function sendHeartrate(client: typeof TouchPortalAPI.Client) {
   let heartRate = getRandomHeartrate();
-  console.log(`Heartrate: ${heartRate}`);
-
   client.stateUpdate(State.CURRENT_HEARTRATE, heartRate);
 }
 

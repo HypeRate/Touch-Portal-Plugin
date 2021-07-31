@@ -16,14 +16,28 @@ var WSController = /** @class */ (function () {
         };
         this.wss.send(JSON.stringify(payload));
     };
+    WSController.prototype.sendHeartbeat = function () {
+        var _this = this;
+        var payload = {
+            topic: "phoenix",
+            event: "heartbeat",
+            payload: {},
+            ref: 0,
+        };
+        // Send heartbeat every 25 seconds to keep connection alive
+        setInterval(function () {
+            _this.wss.send(JSON.stringify(payload));
+        }, 25000);
+    };
     WSController.prototype.onMessage = function (payload) {
         var message = JSON.parse(payload);
         switch (message.event) {
-            case "phx_reply":
-                this.tpService.updateState(states_1.State.CURRENT_HEARTRATE, 80);
+            case "hr_update":
+                var heartRate = message.payload.hr;
+                this.tpService.updateState(states_1.State.CURRENT_HEARTRATE, heartRate);
                 break;
             default:
-                throw new Error("Message type does not exist");
+                console.log("Message type does not exist");
         }
     };
     return WSController;

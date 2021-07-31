@@ -12,25 +12,42 @@ export class WSController {
     this.tpService = tpService;
   }
 
-  join(hypeRateUserId: number | string) {
+  // Join a socket with users' HypeRate ID
+  join(hypeRateUserId: number | string): void {
     const payload = {
       topic: `hr:${hypeRateUserId}`,
       event: "phx_join",
       payload: {},
       ref: 0,
     };
+
     this.wss.send(JSON.stringify(payload));
   }
 
-  onMessage(payload: any) {
+  // Send heartbeat every 25 seconds to keep connection alive
+  sendHeartbeat(): void {
+    const payload = {
+      topic: "phoenix",
+      event: "heartbeat",
+      payload: {},
+      ref: 0,
+    };
+    setInterval(() => {
+      this.wss.send(JSON.stringify(payload));
+    }, 25000);
+  }
+
+  // Get message back from WebSocket and update TouchPortal State
+  onMessage(payload: any): void {
     const message = JSON.parse(payload);
 
     switch (message.event) {
-      case "phx_reply":
-        this.tpService.updateState(State.CURRENT_HEARTRATE, 80);
+      case "hr_update":
+        const heartRate = message.payload.hr;
+        this.tpService.updateState(State.CURRENT_HEARTRATE, heartRate);
         break;
       default:
-        throw new Error("Message type does not exist");
+        console.log("Message type does not exist");
     }
   }
 }
