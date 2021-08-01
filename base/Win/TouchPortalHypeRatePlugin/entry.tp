@@ -7,7 +7,7 @@
     "colorDark": "#313131",
     "colorLight": "#34AA2F"
   },
-  "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/start_tphyperate.sh",
+  "plugin_start_cmd": "%TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/tphyperate.exe",
   "categories": [
     {
       "id": "hyperate_category",
