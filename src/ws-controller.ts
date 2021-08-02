@@ -13,7 +13,7 @@ export class WSController {
   }
 
   // Join a socket with users' HypeRate ID
-  join(hypeRateUserId: number | string): void {
+  join(hypeRateUserId: string): void {
     const payload = {
       topic: `hr:${hypeRateUserId}`,
       event: "phx_join",

@@ -1,6 +1,6 @@
 {
   "sdk": 2,
-  "version": 1000,
+  "version": 1.0,
   "name": "TouchPortalHypeRatePlugin",
   "id": "markusbink.TouchPortalHypeRatePlugin",
   "configuration": {
@@ -29,11 +29,8 @@
     {
       "name": "HypeRate ID",
       "default": "1234",
-      "type": "number",
-      "maxLenght": 4,
+      "type": "text",
       "isPassword": false,
-      "minValue": 0,
-      "maxValue": 9999,
       "readOnly": false
     }
   ]

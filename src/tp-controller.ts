@@ -21,7 +21,7 @@ export class TPController {
   }
 
   // Get TouchPortal Setting by its key
-  getSettingByKey(key: string): Promise<string | number> {
+  getSettingByKey(key: string): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
         this.tpClient.on("Settings", async (data: any) => {
