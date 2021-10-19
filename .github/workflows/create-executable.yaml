@@ -39,3 +39,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build-mac --if-present
+
+  release:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            HypeRate-Mac.tpp
+            HypeRate-Win.tpp
