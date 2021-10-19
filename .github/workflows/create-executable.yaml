@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: "Create Text file"
         uses: actions/checkout@v2
-      - run: npm file
+      - run: touch new-file.txt
