@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: "Create Text file"
         uses: actions/checkout@v2
-      - run: touch new-file.txt
+      - run: cat new-file.txt
