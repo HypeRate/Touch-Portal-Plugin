@@ -1,0 +1,13 @@
+name: "Create Executables"
+
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  create-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Create Text file"
+      - run: npm file
