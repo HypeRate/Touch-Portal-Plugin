@@ -24,6 +24,7 @@ jobs:
       - run: npm run build-win --if-present
 
   create-mac-exe:
+    needs: create-windows-exe
     runs-on: macOS-11
 
     strategy:
@@ -41,6 +42,7 @@ jobs:
       - run: npm run build-mac --if-present
 
   release:
+    needs: create-mac-exe
     runs-on: ubuntu-latest
 
     steps:
