@@ -10,5 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Create Text file"
-        uses: actions/checkout@v2
-      - run: cat new-file.txt
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm file

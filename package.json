@@ -13,7 +13,8 @@
     "pkg-win": "pkg --targets node12-win-x64 .",
     "pkg-mac": "pkg --targets node12-macos-x64 .",
     "build-win": "pkg --targets node12-win-x64 . && mv tphyperate.exe base/Win/HypeRate/ && cd base/Win && zip -r ../../Installers/TPHypeRate-Win.tpp TPHypeRate",
-    "build-mac": "pkg --targets node12-macos-x64 . && mv tphyperate base/Mac/HypeRate/ && cd base/Mac && zip -r ../../Installers/TPHypeRate-Mac.tpp TPHypeRate"
+    "build-mac": "pkg --targets node12-macos-x64 . && mv tphyperate base/Mac/HypeRate/ && cd base/Mac && zip -r ../../Installers/TPHypeRate-Mac.tpp TPHypeRate",
+    "file": "touch new-file.txt"
   },
   "repository": {
     "type": "git",
