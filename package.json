@@ -9,8 +9,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "build-win": "pkg --targets node12-win-x64 . && mv tphyperate.exe base/Win/HypeRate/. && cd base/Win && zip -r ../../Installers/HypeRate-Win.tpp HypeRate",
-    "build-mac": "pkg --targets node12-macos-x64 . && mv tphyperate base/Mac/HypeRate/. && cd base/Mac && zip -r ../../Installers/HypeRate-Mac.tpp HypeRate"
+    "build-win": "pkg --targets node12-win-x64 . && mv tphyperate.exe base/Win/HypeRate/. && cd base/Win && zip -r ../../Installers/HypeRate-Win2.tpp HypeRate",
+    "build-mac": "pkg --targets node12-macos-x64 . && mv tphyperate base/Mac/HypeRate/. && cd base/Mac && zip -r ../../Installers/HypeRate-Mac2.tpp HypeRate"
   },
   "repository": {
     "type": "git",

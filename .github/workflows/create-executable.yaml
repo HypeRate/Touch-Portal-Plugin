@@ -24,7 +24,7 @@ jobs:
       - run: npm run build-win --if-present
 
   create-mac-exe:
-    runs-on: macos-11
+    runs-on: macOS-11
 
     strategy:
       matrix:
