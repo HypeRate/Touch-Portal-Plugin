@@ -2,7 +2,8 @@ name: create-executables
 
 on:
   push:
-    branches: [dev]
+    branches:
+      - "dev"
 
 jobs:
   create-windows-exe:
@@ -50,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: mac-exe
-          path: Installers/TouchPortalHypeRatePlugin-Mac.tpp'''
+          path: Installers/TouchPortalHypeRatePlugin-Mac.tpp
 
   release:
     needs: create-mac-exe
