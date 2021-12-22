@@ -1,2 +1,6 @@
 node_modules
+<<<<<<< Updated upstream
 .DS_Store
+=======
+.github/.DS_Store
+>>>>>>> Stashed changes
