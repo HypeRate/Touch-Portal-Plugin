@@ -1,8 +1,8 @@
-name: "Create Executables"
+name: create-executables
 
 on:
   push:
-    branches: ["dev"]
+    branches: [dev]
 
 jobs:
   create-windows-exe:
