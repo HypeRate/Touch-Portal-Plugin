@@ -1,4 +1,4 @@
-name: create-executables
+name: "Create Executables"
 
 on:
   push:
@@ -16,18 +16,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create Windows Executable
+      - name: "Create Windows Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build-win --if-present
 
-      - name: Upload Windows Executable
+      - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
-          name: windows-exe
-          path: Installers/TouchPortalHypeRatePlugin-Windows.tpp
+          name: installer
+          path: Installers/HypeRate-Win.tpp
 
   create-mac-exe:
     needs: create-windows-exe
@@ -40,54 +40,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create Mac Executable
+      - name: "Create Mac Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build-mac --if-present
 
-      - name: Upload Mac Executable
+      - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
-          name: mac-exe
-          path: Installers/TouchPortalHypeRatePlugin-Mac.tpp
+          name: installer
+          path: Installers/HypeRate-Mac.tpp
 
   release:
     needs: create-mac-exe
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Executables
-        uses: actions/download-artifact@v2
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release V${{ github.run_number }}
-
-      # - name: Upload Windows Asset
-      #   id: upload_windows_release_asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: windows-exe/TouchPortalHypeRatePlugin-Windows.tpp
-      #     asset_name: HypeRate-Windows.tpp
-      #     asset_content_type: application/zip
-
-      # - name: Upload Mac Asset
-      #   id: upload_mac_release_asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: mac-exe/TouchPortalHypeRatePlugin-Mac.tpp
-      #     asset_name: HypeRate-Mac.tpp
-      #     asset_content_type: application/zip
+          files: |
+            Installers/HypeRate-Mac.tpp
+            Installers/HypeRate-Win.tpp
