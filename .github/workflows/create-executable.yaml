@@ -27,7 +27,7 @@ jobs:
       - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
-          name: HypeRate-Win
+          name: HypeRate-Win.tpp
           path: Installers/HypeRate-Win.tpp
 
   create-mac-exe:
@@ -52,7 +52,7 @@ jobs:
       - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
-          name: HypeRate-Mac
+          name: HypeRate-Mac.tpp
           path: Installers/HypeRate-Mac.tpp
 
   release:
