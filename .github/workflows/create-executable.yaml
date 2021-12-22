@@ -3,7 +3,7 @@ name: "Create Executables"
 on:
   push:
     branches:
-      - "main"
+      - "dev"
 
 jobs:
   # Creating a Windows Executable and uploading the artifact works
