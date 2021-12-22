@@ -11,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 15.x]
+        node-version: [15.x]
+        #node-version: [12.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -82,8 +83,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: Installer/HypeRate-Mac.tpp
-          asset_name: HypeRate-Mac.apk
+          asset_path: HypeRate-Mac.tpp
+          asset_name: HypeRate-Mac.tpp
           asset_content_type: application/zip
 
       - name: Upload Win Exe to release
@@ -93,6 +94,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: Installer/HypeRate-Win.tpp
-          asset_name: HypeRate-Win.apk
+          asset_path: HypeRate-Win.tpp
+          asset_name: HypeRate-Win.tpp
           asset_content_type: application/zip
