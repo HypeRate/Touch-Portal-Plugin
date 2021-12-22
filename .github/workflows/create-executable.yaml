@@ -69,13 +69,13 @@ jobs:
           tag_name: ${{ github.run_number }}
           release_name: Release v${{ github.run_number }}
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            HypeRate-Mac.tpp
-            HypeRate-Win.tpp
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     files: |
+      #       HypeRate-Mac.tpp
+      #       HypeRate-Win.tpp
 
       - name: Upload Mac Exe to release
         id: upload_mac_release_asset
