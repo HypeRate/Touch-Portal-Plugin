@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: mac-exe
-          path: Installers/TouchPortalHypeRatePlugin-Mac.tpp
+          path: Installers/TouchPortalHypeRatePlugin-Mac.tpp'''
 
   release:
     needs: create-mac-exe
@@ -69,24 +69,24 @@ jobs:
           tag_name: v${{ github.run_number }}
           release_name: Release V${{ github.run_number }}
 
-      - name: Upload Windows Asset
-        id: upload_windows_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: windows-exe/TouchPortalHypeRatePlugin-Windows.tpp
-          asset_name: HypeRate-Windows.tpp
-          asset_content_type: application/zip
+      # - name: Upload Windows Asset
+      #   id: upload_windows_release_asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: windows-exe/TouchPortalHypeRatePlugin-Windows.tpp
+      #     asset_name: HypeRate-Windows.tpp
+      #     asset_content_type: application/zip
 
-      - name: Upload Mac Asset
-        id: upload_mac_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: mac-exe/TouchPortalHypeRatePlugin-Mac.tpp
-          asset_name: HypeRate-Mac.tpp
-          asset_content_type: application/zip
+      # - name: Upload Mac Asset
+      #   id: upload_mac_release_asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: mac-exe/TouchPortalHypeRatePlugin-Mac.tpp
+      #     asset_name: HypeRate-Mac.tpp
+      #     asset_content_type: application/zip
