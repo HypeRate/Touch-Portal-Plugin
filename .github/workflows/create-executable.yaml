@@ -3,7 +3,7 @@ name: "Create Executables"
 on:
   push:
     branches:
-      - "dev"
+      - "master"
 
 jobs:
   # Creating a Windows Executable and uploading the artifact works
@@ -82,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
+          tag_name: v1.0.${{ github.run_number }}
           release_name: Release v1.0.${{ github.run_number }}
 
       - name: Upload Mac Exe to release
