@@ -63,12 +63,16 @@ jobs:
 
     steps:
       - name: Download Mac Exe from build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: HypeRate-Mac.tpp
 
       - name: Download Windows Exe from build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: HypeRate-Win.tpp
 
