@@ -50,7 +50,7 @@ jobs:
       - name: Upload Executable
         uses: actions/upload-artifact@v2
         with:
-          name: installer
+          name: Installer
           path: Installers/HypeRate-Mac.tpp
 
   release:
