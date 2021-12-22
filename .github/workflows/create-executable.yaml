@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: HypeRate-Win.tpp
-          path: Installers/HypeRate-Win.tpp
+          path: HypeRate-Win.tpp
 
   create-mac-exe:
     needs: create-windows-exe
@@ -53,30 +53,29 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: HypeRate-Mac.tpp
-          path: Installers/HypeRate-Mac.tpp
+          path: HypeRate-Mac.tpp
 
   release:
     needs: create-mac-exe
     runs-on: ubuntu-latest
 
     steps:
-      #   - name: Create Release
-      #     id: create_release
-      #     uses: actions/create-release@v1
-      #     env:
-      #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     with:
-      #       tag_name: ${{ github.run_number }}
-      #       release_name: Release v${{ github.run_number }}
-
-      - name: Release
+      - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
-            HypeRate-Mac.tpp
-            HypeRate-Win.tpp
+          tag_name: ${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+      # - name: Release
+      #   id: create_release
+      #   uses: softprops/action-gh-release@v1
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     files: |
+      #       HypeRate-Mac.tpp
+      #       HypeRate-Win.tpp
 
       - name: Upload Mac Exe to release
         id: upload_mac_release_asset
