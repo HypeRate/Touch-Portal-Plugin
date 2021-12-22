@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: HypeRate-Win.tpp
-          path: Installers/HypeRate-Win.tpp
+          path: base/Win/HypeRate-Win.tpp
 
   # Creating a Max Executable and uploading the artifact works
   create-mac-exe:
@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: HypeRate-Mac.tpp
-          path: Installers/HypeRate-Mac.tpp
+          path: base/Mac/HypeRate-Mac.tpp
 
   release:
     needs: create-mac-exe
