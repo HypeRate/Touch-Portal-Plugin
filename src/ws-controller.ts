@@ -12,7 +12,10 @@ export class WSController {
     this.tpService = tpService;
   }
 
-  // Join a socket with users' HypeRate ID
+  /**
+   * Conntects to the Hyperate WebSocket
+   * @param hypeRateUserId HypeRate User ID
+   */
   join(hypeRateUserId: string): void {
     const payload = {
       topic: `hr:${hypeRateUserId}`,
@@ -24,7 +27,10 @@ export class WSController {
     this.wss.send(JSON.stringify(payload));
   }
 
-  // Send heartbeat every 25 seconds to keep connection alive
+  /**
+   * Sends a heartbeat to the Hyperate WebSocket
+   * to keep connection alive
+   */
   sendHeartbeat(): void {
     const payload = {
       topic: "phoenix",
@@ -37,7 +43,10 @@ export class WSController {
     }, 25000);
   }
 
-  // Get message back from WebSocket and update TouchPortal State
+  /**
+   * Callback for when a message is received from the Hyperate WebSocket
+   * @param payload Payload received from the Hyperate WebSocket
+   */
   onMessage(payload: any): void {
     const message = JSON.parse(payload);
 
