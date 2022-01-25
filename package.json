@@ -4,9 +4,7 @@
   "license": "ISC",
   "description": "",
   "main": "dist/index.js",
-  "bin": {
-    "tphyperate": "dist/index.js"
-  },
+  "bin": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
