@@ -1,18 +1,18 @@
 {
   "sdk": 2,
-  "version": 1.0,
-  "name": "TouchPortalHypeRatePlugin",
+  "version": 1.0.1,
+  "name": "HypeRate",
   "id": "markusbink.TouchPortalHypeRatePlugin",
   "configuration": {
     "colorDark": "#313131",
     "colorLight": "#34AA2F"
   },
-  "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/start_tphyperate.sh",
+  "plugin_start_cmd": "sh %TP_PLUGIN_FOLDER%HypeRate/start_tphyperate.sh",
   "categories": [
     {
       "id": "hyperate_category",
       "name": "HypeRate Stats",
-      "imagepath": "%TP_PLUGIN_FOLDER%TouchPortalHypeRatePlugin/images/hyperate-logo-icon-24.png",
+      "imagepath": "%TP_PLUGIN_FOLDER%HypeRate/images/hyperate-logo-icon-24.png",
       "actions": [],
       "events": [],
       "states": [
