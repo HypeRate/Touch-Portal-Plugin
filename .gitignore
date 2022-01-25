@@ -2,5 +2,3 @@ node_modules
 .DS_Store
 .env
 *.tpp
-base/Mac/HypeRate/tphyperate
-base/Win/HypeRate/tphyperate.exe
