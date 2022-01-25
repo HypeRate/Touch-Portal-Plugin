@@ -24,7 +24,12 @@ export class WSController {
       ref: 0,
     };
 
-    this.wss.send(JSON.stringify(payload));
+    try {
+      this.wss.send(JSON.stringify(payload));
+    } catch (err) {
+      console.log("Error when joining the Hyperate WebSocket");
+      console.log(err);
+    }
   }
 
   /**
@@ -38,9 +43,14 @@ export class WSController {
       payload: {},
       ref: 0,
     };
-    setInterval(() => {
-      this.wss.send(JSON.stringify(payload));
-    }, 25000);
+    try {
+      setInterval(() => {
+        this.wss.send(JSON.stringify(payload));
+      }, 25000);
+    } catch (err) {
+      console.log("Error sending Heartbeat");
+      console.log(err);
+    }
   }
 
   /**
@@ -55,8 +65,11 @@ export class WSController {
         const heartRate = message.payload.hr;
         this.tpService.updateState(State.CURRENT_HEARTRATE, heartRate);
         break;
+      case "phx_reply":
+        console.log("phx_reply", message.topic);
+        break;
       default:
-        console.log("Message type does not exist");
+        console.log(`Message type does not exist: ${message.event}`);
     }
   }
 }

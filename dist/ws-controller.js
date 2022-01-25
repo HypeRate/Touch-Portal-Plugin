@@ -13,12 +13,18 @@ var WSController = /** @class */ (function () {
      */
     WSController.prototype.join = function (hypeRateUserId) {
         var payload = {
-            topic: "hr:" + hypeRateUserId,
+            topic: "hr:".concat(hypeRateUserId),
             event: "phx_join",
             payload: {},
             ref: 0,
         };
-        this.wss.send(JSON.stringify(payload));
+        try {
+            this.wss.send(JSON.stringify(payload));
+        }
+        catch (err) {
+            console.log("Error when joining the Hyperate WebSocket");
+            console.log(err);
+        }
     };
     /**
      * Sends a heartbeat to the Hyperate WebSocket
@@ -32,9 +38,15 @@ var WSController = /** @class */ (function () {
             payload: {},
             ref: 0,
         };
-        setInterval(function () {
-            _this.wss.send(JSON.stringify(payload));
-        }, 25000);
+        try {
+            setInterval(function () {
+                _this.wss.send(JSON.stringify(payload));
+            }, 25000);
+        }
+        catch (err) {
+            console.log("Error sending Heartbeat");
+            console.log(err);
+        }
     };
     /**
      * Callback for when a message is received from the Hyperate WebSocket
@@ -47,8 +59,11 @@ var WSController = /** @class */ (function () {
                 var heartRate = message.payload.hr;
                 this.tpService.updateState(states_1.State.CURRENT_HEARTRATE, heartRate);
                 break;
+            case "phx_reply":
+                console.log("phx_reply", message.topic);
+                break;
             default:
-                console.log("Message type does not exist");
+                console.log("Message type does not exist: ".concat(message.event));
         }
     };
     return WSController;

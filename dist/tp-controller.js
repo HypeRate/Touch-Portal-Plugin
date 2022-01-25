@@ -51,7 +51,7 @@ var TPController = /** @class */ (function () {
         }
         catch (err) {
             console.log(err);
-            throw new Error("Could not connect to the plugin with ID " + pluginId);
+            throw new Error("Could not connect to the plugin with ID ".concat(pluginId));
         }
     }
     Object.defineProperty(TPController.prototype, "client", {
