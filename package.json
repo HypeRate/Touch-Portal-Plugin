@@ -4,7 +4,7 @@
   "license": "ISC",
   "description": "",
   "main": "dist/index.js",
-  "bin": "dist/index.js",
+  "bin": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
