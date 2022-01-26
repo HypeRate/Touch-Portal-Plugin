@@ -50,7 +50,6 @@ var TPController = /** @class */ (function () {
             this.tpClient.connect({ pluginId: pluginId });
         }
         catch (err) {
-            console.log(err);
             throw new Error("Could not connect to the plugin with ID ".concat(pluginId));
         }
     }
@@ -88,12 +87,7 @@ var TPController = /** @class */ (function () {
      * @param value Setting value
      */
     TPController.prototype.updateState = function (key, value) {
-        try {
-            this.tpClient.stateUpdate(key, value);
-        }
-        catch (err) {
-            console.log(err);
-        }
+        this.tpClient.stateUpdate(key, value);
     };
     return TPController;
 }());

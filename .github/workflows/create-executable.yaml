@@ -14,15 +14,13 @@ jobs:
       matrix:
         node-version: [15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
       - name: "Create Windows Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-        env:
-          HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
+      - run: sed -i '' 's/process.env.HYPERATE_API_KEY/"${{ secrets.HYPERATE_API_KEY }}"/g' dist/index.js
       - run: npm install
       - run: npm run build-win --if-present
 
@@ -41,15 +39,12 @@ jobs:
       matrix:
         node-version: [15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-        env:
-          HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
       - run: sed -i '' 's/process.env.HYPERATE_API_KEY/"${{ secrets.HYPERATE_API_KEY }}"/g' dist/index.js
       - run: npm install
       - run: npm run build-mac --if-present

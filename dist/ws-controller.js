@@ -18,13 +18,7 @@ var WSController = /** @class */ (function () {
             payload: {},
             ref: 0,
         };
-        try {
-            this.wss.send(JSON.stringify(payload));
-        }
-        catch (err) {
-            console.log("Error when joining the Hyperate WebSocket");
-            console.log(err);
-        }
+        this.wss.send(JSON.stringify(payload));
     };
     /**
      * Sends a heartbeat to the Hyperate WebSocket
@@ -38,15 +32,9 @@ var WSController = /** @class */ (function () {
             payload: {},
             ref: 0,
         };
-        try {
-            setInterval(function () {
-                _this.wss.send(JSON.stringify(payload));
-            }, 25000);
-        }
-        catch (err) {
-            console.log("Error sending Heartbeat");
-            console.log(err);
-        }
+        setInterval(function () {
+            _this.wss.send(JSON.stringify(payload));
+        }, 25000);
     };
     /**
      * Callback for when a message is received from the Hyperate WebSocket

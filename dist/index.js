@@ -47,33 +47,24 @@ var tp_controller_1 = require("./tp-controller");
 var ws_controller_1 = require("./ws-controller");
 dotenv_1.default.config();
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var HYPERATE_WEBSOCKET_URL, TOUCHPORTAL_PLUGIN_ID, tpService, wss, wsController_1, hypeRateUserId_1, err_1;
+    var HYPERATE_WEBSOCKET_URL, TOUCHPORTAL_PLUGIN_ID, tpService, wss, wsController, hypeRateUserId;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 HYPERATE_WEBSOCKET_URL = "wss://staging.frightrate.com/socket/websocket?token=".concat(process.env.HYPERATE_API_KEY);
                 TOUCHPORTAL_PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
                 tpService = new tp_controller_1.TPController(TOUCHPORTAL_PLUGIN_ID);
                 wss = new ws_1.default(HYPERATE_WEBSOCKET_URL);
-                wsController_1 = new ws_controller_1.WSController(wss, tpService);
+                wsController = new ws_controller_1.WSController(wss, tpService);
                 return [4 /*yield*/, tpService.getSettingByKey(settings_1.Setting.HYPERATE_ID)];
-            case 2:
-                hypeRateUserId_1 = _a.sent();
+            case 1:
+                hypeRateUserId = _a.sent();
                 if (wss) {
-                    wss.on("open", function () { return wsController_1.join(hypeRateUserId_1); });
-                    wsController_1.sendHeartbeat();
-                    wss.on("message", function (payload) { return wsController_1.onMessage(payload); });
+                    wss.on("open", function () { return wsController.join(hypeRateUserId); });
+                    wsController.sendHeartbeat();
+                    wss.on("message", function (payload) { return wsController.onMessage(payload); });
                 }
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                console.log("Something went wrong...");
-                console.log(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [2 /*return*/];
         }
     });
 }); })();

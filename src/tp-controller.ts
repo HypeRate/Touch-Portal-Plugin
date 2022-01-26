@@ -11,7 +11,6 @@ export class TPController {
     try {
       this.tpClient.connect({ pluginId });
     } catch (err) {
-      console.log(err);
       throw new Error(`Could not connect to the plugin with ID ${pluginId}`);
     }
   }
@@ -43,10 +42,6 @@ export class TPController {
    * @param value Setting value
    */
   updateState(key: string, value: string | number): void {
-    try {
-      this.tpClient.stateUpdate(key, value);
-    } catch (err) {
-      console.log(err);
-    }
+    this.tpClient.stateUpdate(key, value);
   }
 }
