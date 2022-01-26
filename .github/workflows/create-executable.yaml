@@ -48,7 +48,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: sed -i '' 's/${process.env.HYPERATE_API_KEY}/"${{ secrets.HYPERATE_API_KEY }}"/g' dist/index.js
+      - run: sed -i '' 's/${process.env.HYPERATE_API_KEY}/${{ secrets.HYPERATE_API_KEY }}/g' dist/index.js
       - run: echo "${{ secrets.HYPERATE_API_KEY }}" | sed -e 's/\(.\)/\1 /g'
       - run: npm install
       - run: npm run build-mac --if-present
