@@ -50,7 +50,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
         env:
           HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
-      - name: "Log Stuff"
       - run: sed -i 's/${process.env.HYPERATE_API_KEY}/$HYPERATE_API_KEY/g' 'dist/index.js'
       - run: echo $HYPERATE_AP_KEY | sed 's/./& /g'
       - run: npm install
