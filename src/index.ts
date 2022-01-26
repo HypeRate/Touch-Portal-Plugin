@@ -11,6 +11,8 @@ dotenv.config();
   const HYPERATE_WEBSOCKET_URL = `wss://staging.frightrate.com/socket/websocket?token=${process.env.HYPERATE_API_KEY}`;
   const TOUCHPORTAL_PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
 
+  console.log({ HYPERATE_WEBSOCKET_URL });
+
   const tpService = new TPController(TOUCHPORTAL_PLUGIN_ID);
   const wss = new WebSocket(HYPERATE_WEBSOCKET_URL);
   const wsController = new WSController(wss, tpService);
