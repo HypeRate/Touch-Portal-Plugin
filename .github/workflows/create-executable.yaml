@@ -46,7 +46,7 @@ jobs:
       - name: "Test API Key"
         env:
           HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
-      - run: echo "${{ secrets.HYPERATE_API_KEY }}" | sed -e 's/\(.\)/\1 /g'
+        run: echo "${{ secrets.HYPERATE_API_KEY }}" | sed -e 's/\(.\)/\1 /g'
       - run: sed -i '' 's/${process.env.HYPERATE_API_KEY}/${{ secrets.HYPERATE_API_KEY }}/g' dist/index.js
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
