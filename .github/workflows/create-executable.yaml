@@ -43,16 +43,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - name: "Test API Key"
+      - name: "Key"
         env:
-          HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
-        run: echo "${{ secrets.HYPERATE_API_KEY }}" | sed -e 's/\(.\)/\1 /g'
-      - run: sed -i '' 's/${process.env.HYPERATE_API_KEY}/${{ secrets.HYPERATE_API_KEY }}/g' dist/index.js
+          HYPERATE_API_KEY: ${secrets.GITHUB_TOKEN}
+        run: echo "$HYPERATE_API_KEY" | sed -e 's/\(.\)/\1 /g'
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
+      - run: sed -i '' 's/${process.env.HYPERATE_API_KEY}/${{ secrets.HYPERATE_API_KEY }}/g' dist/index.js
+
       - run: npm install
       - run: npm run build-mac --if-present
 
