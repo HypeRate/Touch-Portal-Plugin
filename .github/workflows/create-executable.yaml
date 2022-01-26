@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: "Key"
         env:
-          HYPERATE_API_KEY: ${secrets.GITHUB_TOKEN}
+          HYPERATE_API_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: echo "$HYPERATE_API_KEY" | sed -e 's/\(.\)/\1 /g'
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
