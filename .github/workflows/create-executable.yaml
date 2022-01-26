@@ -53,6 +53,11 @@ jobs:
           HYPERATE_API_KEY: ${{ secrets.HYPERATE_API_KEY }}
         run: echo "$HYPERATE_API_KEY" | sed -e 's/\(.\)/\1 /g'
 
+      - name: "Testing Token"
+        env:
+          HYPERATE_API_KEY: ${{ secrets.TEST }}
+        run: echo "$HYPERATE_API_KEY" | sed -e 's/\(.\)/\1 /g'
+
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
         uses: actions/setup-node@v2
