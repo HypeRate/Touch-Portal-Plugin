@@ -1,7 +1,7 @@
 {
   "sdk": 2,
-  "version": 1.0,
-  "name": "TouchPortalHypeRatePlugin",
+  "version": 1001,
+  "name": "HypeRate",
   "id": "markusbink.TouchPortalHypeRatePlugin",
   "configuration": {
     "colorDark": "#313131",

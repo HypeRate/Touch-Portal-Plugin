@@ -40,20 +40,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
+var dotenv_1 = __importDefault(require("dotenv"));
 var ws_1 = __importDefault(require("ws"));
 var settings_1 = require("./constants/settings");
 var tp_controller_1 = require("./tp-controller");
 var ws_controller_1 = require("./ws-controller");
-var HYPERATE_WEBSOCKET_URL = "wss://app.hyperate.io/socket/websocket";
-var TOUCHPORTAL_PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
-var tpService = new tp_controller_1.TPController(TOUCHPORTAL_PLUGIN_ID);
-var wss = new ws_1.default(HYPERATE_WEBSOCKET_URL);
-var wsController = new ws_controller_1.WSController(wss, tpService);
+dotenv_1.default.config();
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var hypeRateUserId;
+    var HYPERATE_WEBSOCKET_URL, TOUCHPORTAL_PLUGIN_ID, tpService, wss, wsController, hypeRateUserId;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, tpService.getSettingByKey(settings_1.Setting.HYPERATE_ID)];
+            case 0:
+                HYPERATE_WEBSOCKET_URL = "wss://staging.frightrate.com/socket/websocket?token=".concat(process.env.HYPERATE_API_KEY);
+                TOUCHPORTAL_PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
+                tpService = new tp_controller_1.TPController(TOUCHPORTAL_PLUGIN_ID);
+                wss = new ws_1.default(HYPERATE_WEBSOCKET_URL);
+                wsController = new ws_controller_1.WSController(wss, tpService);
+                return [4 /*yield*/, tpService.getSettingByKey(settings_1.Setting.HYPERATE_ID)];
             case 1:
                 hypeRateUserId = _a.sent();
                 if (wss) {

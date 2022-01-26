@@ -3,7 +3,7 @@ name: "Create Executables"
 on:
   push:
     branches:
-      - "main"
+      - "dev"
 
 jobs:
   # Creating a Windows Executable and uploading the artifact works
@@ -13,15 +13,14 @@ jobs:
     strategy:
       matrix:
         node-version: [15.x]
-        #node-version: [12.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
       - name: "Create Windows Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - run: sed -i 's/process.env.HYPERATE_API_KEY/"${{ secrets.HYPERATE_API_KEY }}"/g' dist/index.js
       - run: npm install
       - run: npm run build-win --if-present
 
@@ -39,15 +38,14 @@ jobs:
     strategy:
       matrix:
         node-version: [15.x]
-        #node-version: [12.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
       - name: "Create Mac Executable"
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - run: sed -i '' 's/process.env.HYPERATE_API_KEY/"${{ secrets.HYPERATE_API_KEY }}"/g' dist/index.js
       - run: npm install
       - run: npm run build-mac --if-present
 
@@ -56,53 +54,3 @@ jobs:
         with:
           name: HypeRate-Mac.tpp
           path: base/Mac/HypeRate-Mac.tpp
-
-  release:
-    needs: create-mac-exe
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Mac Exe from build
-        uses: actions/download-artifact@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          name: HypeRate-Mac.tpp
-
-      - name: Download Windows Exe from build
-        uses: actions/download-artifact@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          name: HypeRate-Win.tpp
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.0.${{ github.run_number }}
-          release_name: Release v1.0.${{ github.run_number }}
-
-      - name: Upload Mac Exe to release
-        id: upload_mac_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HypeRate-Mac.tpp
-          asset_name: HypeRate-Mac.tpp
-          asset_content_type: application/zip
-
-      - name: Upload Windows Exe to release
-        id: upload_win_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HypeRate-Win.tpp
-          asset_name: HypeRate-Win.tpp
-          asset_content_type: application/zip

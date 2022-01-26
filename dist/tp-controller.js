@@ -50,8 +50,7 @@ var TPController = /** @class */ (function () {
             this.tpClient.connect({ pluginId: pluginId });
         }
         catch (err) {
-            console.log(err);
-            throw new Error("Could not connect to the plugin with ID " + pluginId);
+            throw new Error("Could not connect to the plugin with ID ".concat(pluginId));
         }
     }
     Object.defineProperty(TPController.prototype, "client", {
@@ -61,6 +60,11 @@ var TPController = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    /**
+     * Retrieves a setting from the TouchPortal client
+     * @param key Setting key
+     * @returns Value of the setting
+     */
     TPController.prototype.getSettingByKey = function (key) {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -77,13 +81,13 @@ var TPController = /** @class */ (function () {
             }
         });
     };
+    /**
+     * Set a setting on the TouchPortal client
+     * @param key Setting key
+     * @param value Setting value
+     */
     TPController.prototype.updateState = function (key, value) {
-        try {
-            this.tpClient.stateUpdate(key, value);
-        }
-        catch (err) {
-            console.log(err);
-        }
+        this.tpClient.stateUpdate(key, value);
     };
     return TPController;
 }());

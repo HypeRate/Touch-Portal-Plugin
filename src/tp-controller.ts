@@ -11,7 +11,6 @@ export class TPController {
     try {
       this.tpClient.connect({ pluginId });
     } catch (err) {
-      console.log(err);
       throw new Error(`Could not connect to the plugin with ID ${pluginId}`);
     }
   }
@@ -20,7 +19,11 @@ export class TPController {
     return this.tpClient;
   }
 
-  // Get TouchPortal Setting by its key
+  /**
+   * Retrieves a setting from the TouchPortal client
+   * @param key Setting key
+   * @returns Value of the setting
+   */
   getSettingByKey(key: string): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
@@ -33,12 +36,12 @@ export class TPController {
     });
   }
 
-  // Update TouchPortal State
+  /**
+   * Set a setting on the TouchPortal client
+   * @param key Setting key
+   * @param value Setting value
+   */
   updateState(key: string, value: string | number): void {
-    try {
-      this.tpClient.stateUpdate(key, value);
-    } catch (err) {
-      console.log(err);
-    }
+    this.tpClient.stateUpdate(key, value);
   }
 }
