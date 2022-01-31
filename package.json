@@ -25,7 +25,7 @@
   "homepage": "https://github.com/HypeRate/Touch-Portal-Plugin#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "pkg": "^5.3.1",
+    "pkg": "^4.4.9",
     "touchportal-api": "^2.1.1",
     "ws": "^7.5.3"
   },
