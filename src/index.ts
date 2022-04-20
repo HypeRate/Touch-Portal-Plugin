@@ -26,6 +26,7 @@ dotenv.config();
       wsController.join(hypeRateUserId);
     });
     wsController.sendHeartbeat();
-    wss.on("message", (payload) => wsController.onMessage(payload));
+    wss.on('message', (payload) => wsController.onMessage(payload));
+    wss.on('error', (error) => console.log(error));
   }
 })();
