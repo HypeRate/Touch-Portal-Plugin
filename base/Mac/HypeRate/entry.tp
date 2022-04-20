@@ -1,6 +1,6 @@
 {
   "sdk": 2,
-  "version": 1003,
+  "version": 1004,
   "name": "HypeRate",
   "id": "markusbink.TouchPortalHypeRatePlugin",
   "configuration": {
