@@ -6,7 +6,7 @@ export class TPController {
 
   constructor(pluginId: string) {
     this.tpClient = new TouchPortalAPI.Client();
-    console.log("TP Client initialized...");
+    console.log('[HypeRate] TP Client initialized...');
 
     try {
       this.tpClient.connect({ pluginId });
