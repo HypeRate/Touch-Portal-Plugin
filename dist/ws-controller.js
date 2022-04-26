@@ -26,6 +26,7 @@ var WSController = /** @class */ (function () {
      */
     WSController.prototype.sendHeartbeat = function () {
         var _this = this;
+        console.log("[HypeRate] Sending heartbeat...");
         var payload = {
             topic: "phoenix",
             event: "heartbeat",
@@ -41,6 +42,7 @@ var WSController = /** @class */ (function () {
      * @param payload Payload received from the Hyperate WebSocket
      */
     WSController.prototype.onMessage = function (payload) {
+        console.log("[HypeRate] Received message from Hyperate WebSocket");
         var message = JSON.parse(payload);
         switch (message.event) {
             case "hr_update":

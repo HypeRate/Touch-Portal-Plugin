@@ -51,18 +51,23 @@ dotenv_1.default.config();
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                HYPERATE_WEBSOCKET_URL = "wss://staging.frightrate.com/socket/websocket?token=".concat(process.env.HYPERATE_API_KEY);
+                HYPERATE_WEBSOCKET_URL = "wss://app.hyperate.io/socket/websocket?token=".concat(process.env.HYPERATE_API_KEY);
                 TOUCHPORTAL_PLUGIN_ID = "markusbink.TouchPortalHypeRatePlugin";
                 tpService = new tp_controller_1.TPController(TOUCHPORTAL_PLUGIN_ID);
+                console.log("[HypeRate] Connecting to Hyperate WebSocket...");
                 wss = new ws_1.default(HYPERATE_WEBSOCKET_URL);
                 wsController = new ws_controller_1.WSController(wss, tpService);
                 return [4 /*yield*/, tpService.getSettingByKey(settings_1.Setting.HYPERATE_ID)];
             case 1:
                 hypeRateUserId = _a.sent();
                 if (wss) {
-                    wss.on("open", function () { return wsController.join(hypeRateUserId); });
+                    wss.on("open", function () {
+                        console.log("[HypeRate] Connected to Hyperate WebSocket");
+                        wsController.join(hypeRateUserId);
+                    });
                     wsController.sendHeartbeat();
                     wss.on("message", function (payload) { return wsController.onMessage(payload); });
+                    wss.on("error", function (error) { return console.log(error); });
                 }
                 return [2 /*return*/];
         }

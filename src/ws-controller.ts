@@ -32,6 +32,8 @@ export class WSController {
    * to keep connection alive
    */
   sendHeartbeat(): void {
+    console.log("[HypeRate] Sending heartbeat...");
+
     const payload = {
       topic: "phoenix",
       event: "heartbeat",
@@ -49,6 +51,7 @@ export class WSController {
    * @param payload Payload received from the Hyperate WebSocket
    */
   onMessage(payload: any): void {
+    console.log("[HypeRate] Received message from Hyperate WebSocket");
     const message = JSON.parse(payload);
 
     switch (message.event) {
