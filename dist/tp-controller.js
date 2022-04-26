@@ -45,9 +45,12 @@ var touchportal_api_1 = __importDefault(require("touchportal-api"));
 var TPController = /** @class */ (function () {
     function TPController(pluginId) {
         this.tpClient = new touchportal_api_1.default.Client();
-        console.log("TP Client initialized...");
         try {
+            console.log("[HypeRate] Connecting to TouchPortal...");
             this.tpClient.connect({ pluginId: pluginId });
+            this.tpClient.on("Info", function (_data) {
+                console.log("[HypeRate] Connected to TouchPortal");
+            });
         }
         catch (err) {
             throw new Error("Could not connect to the plugin with ID ".concat(pluginId));
@@ -67,16 +70,19 @@ var TPController = /** @class */ (function () {
      */
     TPController.prototype.getSettingByKey = function (key) {
         var _this = this;
+        console.log("[HypeRate] Getting setting ".concat(key));
         return new Promise(function (resolve, reject) {
             try {
                 _this.tpClient.on("Settings", function (data) { return __awaiter(_this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
+                        console.log("[HypeRate] Setting ".concat(key, " retrieved"));
                         resolve(data[0][key]);
                         return [2 /*return*/];
                     });
                 }); });
             }
             catch (err) {
+                console.log("[HypeRate] Error getting setting");
                 reject(console.log(err));
             }
         });

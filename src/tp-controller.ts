@@ -6,10 +6,15 @@ export class TPController {
 
   constructor(pluginId: string) {
     this.tpClient = new TouchPortalAPI.Client();
-    console.log('[HypeRate] TP Client initialized...');
 
     try {
+      console.log("[HypeRate] Connecting to TouchPortal...");
+
       this.tpClient.connect({ pluginId });
+
+      this.tpClient.on("Info", (_data: any) => {
+        console.log("[HypeRate] Connected to TouchPortal");
+      });
     } catch (err) {
       throw new Error(`Could not connect to the plugin with ID ${pluginId}`);
     }
@@ -25,12 +30,17 @@ export class TPController {
    * @returns Value of the setting
    */
   getSettingByKey(key: string): Promise<string> {
+    console.log(`[HypeRate] Getting setting ${key}`);
+
     return new Promise((resolve, reject) => {
       try {
         this.tpClient.on("Settings", async (data: any) => {
+          console.log(`[HypeRate] Setting ${key} retrieved`);
+
           resolve(data[0][key]);
         });
       } catch (err) {
+        console.log("[HypeRate] Error getting setting");
         reject(console.log(err));
       }
     });
